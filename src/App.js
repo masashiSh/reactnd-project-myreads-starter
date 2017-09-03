@@ -4,6 +4,7 @@ import './App.css'
 import Search from './Search'
 import ListBooks from './ListBooks'
 import {isEqual} from 'lodash'
+import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   shoudComponentUpdate(nextProps, nextState) {
@@ -19,12 +20,6 @@ class BooksApp extends React.Component {
     showSearchPage: false,
     books: [],
     result:[]
-  }
-
-  closeSearch = (state) => {
-    this.setState((state) => ({
-      showSearchPage: !this.state.showSearchPage
-    }))
   }
 
   changeCategories = (book, shelf) => {
@@ -43,19 +38,18 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+        <Route path="/search" render={() =>(
           <Search
             changeCategories={this.changeCategories }
             showSearchPage={this.state.showSearchPage}
-            onCloseSearch={this.closeSearch}
           />
-        ) : (
+        )} />
+        <Route path="/" exact render={() => (
           <ListBooks
             changeCategories={this.changeCategories }
-            onCloseSearch={this.closeSearch}
             books={this.state.books}
           />
-        )}
+        )} />
       </div>
     )
   }

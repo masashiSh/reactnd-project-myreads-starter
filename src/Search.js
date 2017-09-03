@@ -1,13 +1,10 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import PropTypes from 'prop-types'
 import Book from './Book'
+import { Link } from 'react-router-dom'
 
 class Search extends React.Component {
-  static propTypes = {
-    onCloseSearch: PropTypes.func.isRequired
-  }
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -26,21 +23,22 @@ class Search extends React.Component {
   searchBooks = (query, maxResults=20)  => {
     BooksAPI.search(query, maxResults)
     .then(result => {
-      this.setState({ result
+      this.setState({
+        result
       })
     })
   }
 
   render() {
-    const {onCloseSearch} = this.props
     const {result} = this.state
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search"
-            onClick={() => onCloseSearch(this.state.showSearchPage)}>
+          <Link className="close-search"
+            to="/"
+          >
             Close
-          </a>
+          </Link>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -64,6 +62,7 @@ class Search extends React.Component {
               result.map(book => (
               <li key={book.title+book.authors}>
                 <Book
+                  book={result}
                   changeCategoriesHandle={this.props.changeCategories }
                   title={book.title}
                   authors={book.authors}

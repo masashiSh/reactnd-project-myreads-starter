@@ -2,10 +2,11 @@ import React from 'react'
 import './App.css'
 import PropTypes from 'prop-types'
 import BookShelf from './BookShelf'
+import { Link } from 'react-router-dom'
 
 class ListBooks extends React.Component {
   static propTypes = {
-    onCloseSearch: PropTypes.func.isRequired
+    changeCategories: PropTypes.func.isRequired
   }
   state = {
     /**
@@ -19,7 +20,7 @@ class ListBooks extends React.Component {
 
 
   render() {
-    const {onCloseSearch, books, changeCategories} = this.props
+    const { books, changeCategories } = this.props
     const shelfList = ["currentlyReading", "wantToRead", "read"]
     const shelfTitle = [{"currentlyReading": "Currently Reading"}, {"wantToRead": "Want to Read"}, {"read": "Read"}]
     return (
@@ -42,7 +43,9 @@ class ListBooks extends React.Component {
           </div>
         </div>
         <div className="open-search">
-          <a onClick={() => onCloseSearch(this.state.showSearchPage)}>Add a book</a>
+          <Link to="/search">
+            Add a book
+          </Link>
         </div>
       </div>
     )

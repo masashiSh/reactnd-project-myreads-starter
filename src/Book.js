@@ -6,7 +6,6 @@ class Book extends React.Component {
   static propTypes = {
     title:PropTypes.string.isRequired,
     style:PropTypes.object.isRequired,
-    book:PropTypes.object.isRequired,
   }
   state = {
     /**
@@ -24,10 +23,7 @@ class Book extends React.Component {
         <div className="book">
           <div className="book-top">
             <div className="book-cover"
-              style={
-                style
-
-                }></div>
+              style={style}></div>
             <div className="book-shelf-changer">
               <select
                 defaultValue={shelf}
