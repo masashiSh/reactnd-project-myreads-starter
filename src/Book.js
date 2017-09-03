@@ -1,16 +1,12 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 import PropTypes from 'prop-types'
 
 class Book extends React.Component {
   static propTypes = {
-    // showSearchPage: PropTypes.bool.isRequired,
-    // onCloseSearch: PropTypes.func.isRequired
     title:PropTypes.string.isRequired,
-    authors:PropTypes.array.isRequired,
     style:PropTypes.object.isRequired,
-
+    book:PropTypes.object.isRequired,
   }
   state = {
     /**
@@ -22,11 +18,8 @@ class Book extends React.Component {
     showSearchPage: false
   }
 
-
   render() {
-    // debugger;
-    // const {onCloseSearch} = this.props
-    const {title, authors, style} = this.props
+    const {title, authors, style, shelf, book, changeCategoriesHandle} = this.props
     return (
         <div className="book">
           <div className="book-top">
@@ -36,7 +29,10 @@ class Book extends React.Component {
 
                 }></div>
             <div className="book-shelf-changer">
-              <select>
+              <select
+                defaultValue={shelf}
+                onChange={(e) => changeCategoriesHandle(book, e.target.value)}
+                >
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>

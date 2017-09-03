@@ -24,39 +24,34 @@ class BooksApp extends React.Component {
   closeSearch = (state) => {
     this.setState((state) => ({
       showSearchPage: !this.state.showSearchPage
-      // showSearchPage: false
     }))
   }
 
-  // searchBooks = (query, maxResults=20)  => {
-  //   return BooksAPI.search(query, maxResults)
-  //   .then(result => {
-  //     this.setState(state => (
-  //       // books: state.books.concat([ result ])
-  //       Object.assign({}, this.state, {
-  //         result: [ result ]
-  //       })
-  //     ))
-  //   })
-  // }
+  changeCategories = (book, shelf) => {
+    BooksAPI.update(book, shelf).then((result) => {
+      const currentBooks = this.state.books
+      const nextBooks = currentBooks.map((book) => (book.id===result.id)? book.shelf = shelf: book)
+      this.setState({ books: nextBooks })
+    })
+  }
+
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
   }
   render() {
-    // console.log(this.searchBooks('Android'))
-    // debugger;
     return (
       <div className="app">
         {this.state.showSearchPage ? (
           <Search
+            changeCategories={this.changeCategories }
             showSearchPage={this.state.showSearchPage}
             onCloseSearch={this.closeSearch}
-            // onSearchBooks={this.searchBooks}
           />
         ) : (
           <ListBooks
+            changeCategories={this.changeCategories }
             onCloseSearch={this.closeSearch}
             books={this.state.books}
           />

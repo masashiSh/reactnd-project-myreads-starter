@@ -1,13 +1,10 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 import PropTypes from 'prop-types'
 import BookShelf from './BookShelf'
-import Book from './Book'
 
 class ListBooks extends React.Component {
   static propTypes = {
-    // showSearchPage: PropTypes.bool.isRequired,
     onCloseSearch: PropTypes.func.isRequired
   }
   state = {
@@ -22,10 +19,9 @@ class ListBooks extends React.Component {
 
 
   render() {
-    // debugger;
-    const {onCloseSearch, books} = this.props
-    console.log(books)
+    const {onCloseSearch, books, changeCategories} = this.props
     const shelfList = ["currentlyReading", "wantToRead", "read"]
+    const shelfTitle = [{"currentlyReading": "Currently Reading"}, {"wantToRead": "Want to Read"}, {"read": "Read"}]
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -33,58 +29,16 @@ class ListBooks extends React.Component {
         </div>
         <div className="list-books-content">
           <div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  {/*  book*/}
-                  {books.filter(book => book.shelf===shelfList[0])
-                    .map(book => (
-                      <li key={book.title+book.authors}>
-                        <Book
-                          title={book.title}
-                          authors={book.authors}
-                          style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}
-                        />
-                      </li>
-                    ))}
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Want to Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  {books.filter(book => book.shelf===shelfList[1])
-                    .map(book => (
-                      <li key={book.title+book.authors}>
-                        <Book
-                          title={book.title}
-                          authors={book.authors}
-                          style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}
-                        />
-                      </li>
-                    ))}
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  {books.filter(book => book.shelf===shelfList[2])
-                    .map(book => (
-                      <li key={book.title+book.authors}>
-                        <Book
-                          title={book.title}
-                          authors={book.authors}
-                          style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}
-                        />
-                      </li>
-                    ))}
-                </ol>
-              </div>
-            </div>
+            {(!!books && books.length>0) &&
+              shelfList.map(shelf => (
+              <BookShelf
+                changeCategories={changeCategories }
+                key={shelf}
+                shelf={shelf}
+                books={books}
+                title={shelfTitle[`${shelf}`]}
+              />
+            ))}
           </div>
         </div>
         <div className="open-search">
