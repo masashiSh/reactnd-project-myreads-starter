@@ -1,7 +1,8 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 import PropTypes from 'prop-types'
+import Book from './Book'
 
 class Search extends React.Component {
   static propTypes = {
@@ -15,13 +16,37 @@ class Search extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false
+    showSearchPage: false,
+    query:'',
+    result:[]
   }
-
+  HandleSearch = (query) => {
+    // e.preventDefault()
+    this.setState({query: query.trim()})
+    // this.props.onSearchBooks(this.state.query)
+    this.searchBooks(this.state.query)
+    // console.log(this.state.result)
+  }
+  searchBooks = (query, maxResults=20)  => {
+    BooksAPI.search(query, maxResults)
+    .then(result => {
+      this.setState(
+        // state => (
+        // books: state.books.concat([ result ])
+        { result }
+        // Object.assign({}, this.state, {
+        //   result: [ result ]
+        // })
+      // )
+    )
+    })
+  }
 
   render() {
     // debugger;
     const {onCloseSearch} = this.props
+    console.log(this.state.result)
+    const {result} = this.state
     return (
           <div className="search-books">
             <div className="search-books-bar">
@@ -38,12 +63,26 @@ class Search extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input type="text"
+                  placeholder="Search by title or author"
+                  value={this.state.query}
+                  onChange={(e) => this.HandleSearch(e.target.value)}
+                />
 
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+                {result.map(book => (
+                  <li key={book.title+book.authors}>
+                    <Book
+                      title={book.title}
+                      authors={book.authors}
+                      style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}
+                    />
+                  </li>
+                ))}
+              </ol>
             </div>
           </div>
     )

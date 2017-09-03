@@ -7,6 +7,10 @@ class Book extends React.Component {
   static propTypes = {
     // showSearchPage: PropTypes.bool.isRequired,
     // onCloseSearch: PropTypes.func.isRequired
+    title:PropTypes.string.isRequired,
+    authors:PropTypes.array.isRequired,
+    style:PropTypes.object.isRequired,
+
   }
   state = {
     /**
