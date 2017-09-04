@@ -18,14 +18,13 @@ class Search extends React.Component {
   }
   HandleSearch = (query) => {
     this.setState({query: query.trim()})
-    this.searchBooks(this.state.query)
+    console.log(this.state.query)
+    this.searchBooks(query.trim())
   }
   searchBooks = (query)  => {
     BooksAPI.search(query, 10)
     .then(result => {
-      !!result && this.setState({
-        result
-      })
+      !!result && this.setState({result})
     })
   }
 
