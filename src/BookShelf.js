@@ -19,19 +19,20 @@ class BookShelf extends React.Component {
 
 
   render() {
-    const {books, shelf, title, changeCategories} = this.props
+    const {books, shelfName, changeCategories, shelfTitle} = this.props
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{title}</h2>
+        <h2 className="bookshelf-title">{shelfTitle[`${shelfName}`]}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
             { (!!books && books.length>0) &&
-              books.filter(book => book.shelf===shelf)
-              .map(book => (
-                <li key={book.title+book.authors}>
+              books.filter(book => book.shelf===shelfName)
+              .map((book, index) => (
+                <li key={index}>
                   <Book
+                    key={book.title+book.authors}
                     changeCategoriesHandle={changeCategories }
-                    shelf={shelf}
+                    shelf={shelfName}
                     title={book.title}
                     authors={book.authors}
                     book={book}

@@ -19,16 +19,16 @@ class Book extends React.Component {
 
   render() {
     const {title, authors, style, shelf, book, changeCategoriesHandle} = this.props
+
     return (
         <div className="book">
           <div className="book-top">
-            <div className="book-cover"
-              style={style}></div>
+            <div className="book-cover" style={style}></div>
             <div className="book-shelf-changer">
               <select
-                defaultValue={shelf}
+                value={shelf}
                 onChange={(e) => changeCategoriesHandle(book, e.target.value)}
-                >
+              >
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>

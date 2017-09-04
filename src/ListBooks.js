@@ -22,7 +22,8 @@ class ListBooks extends React.Component {
   render() {
     const { books, changeCategories } = this.props
     const shelfList = ["currentlyReading", "wantToRead", "read"]
-    const shelfTitle = [{"currentlyReading": "Currently Reading"}, {"wantToRead": "Want to Read"}, {"read": "Read"}]
+    const shelfTitle = {"currentlyReading": "Currently Reading", "wantToRead": "Want to Read", "read": "Read"}
+    // const shelfTitle = [{"currentlyReading": "Currently Reading"}, {"wantToRead": "Want to Read"}, {"read": "Read"}]
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -35,9 +36,10 @@ class ListBooks extends React.Component {
               <BookShelf
                 changeCategories={changeCategories }
                 key={shelf}
-                shelf={shelf}
+                shelfName={shelf}
                 books={books}
-                title={shelfTitle[`${shelf}`]}
+                // title={shelfTitle[`${shelf}`]}
+                shelfTitle={shelfTitle}
               />
             ))}
           </div>

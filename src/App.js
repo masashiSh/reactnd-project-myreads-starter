@@ -28,6 +28,9 @@ class BooksApp extends React.Component {
       const nextBooks = currentBooks.map((book) => (book.id===result.id)? book.shelf = shelf: book)
       this.setState({ books: nextBooks })
     })
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+    })
   }
 
   componentDidMount() {
