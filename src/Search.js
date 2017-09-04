@@ -18,7 +18,6 @@ class Search extends React.Component {
   }
   HandleSearch = (query) => {
     this.setState({query: query.trim()})
-    console.log(this.state.query)
     this.searchBooks(query.trim())
   }
   searchBooks = (query)  => {
@@ -30,6 +29,7 @@ class Search extends React.Component {
 
   render() {
     const {result} = this.state
+    // const {books} = this.props
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -58,8 +58,8 @@ class Search extends React.Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {(!!result && result.length>0) &&
-              result.map(book => (
-              <li key={book.title+book.authors}>
+              result.map((book, index) => (
+              <li key={index}>
                 <Book
                   book={book}
                   shelf={book.shelf}

@@ -7,7 +7,7 @@ class BookShelf extends React.Component {
   static propTypes = {
     changeCategories: PropTypes.func.isRequired
   }
-  state = {
+  state = { 
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -30,7 +30,6 @@ class BookShelf extends React.Component {
               .map((book, index) => (
                 <li key={index}>
                   <Book
-                    key={book.title+book.authors}
                     changeCategoriesHandle={changeCategories }
                     shelf={shelfName}
                     title={book.title}
