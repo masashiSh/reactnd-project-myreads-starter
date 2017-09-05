@@ -5,9 +5,9 @@ import Book from './Book'
 
 class BookShelf extends React.Component {
   static propTypes = {
-    changeCategories: PropTypes.func.isRequired
+    updateStatus: PropTypes.func.isRequired
   }
-  state = { 
+  state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -19,7 +19,7 @@ class BookShelf extends React.Component {
 
 
   render() {
-    const {books, shelfName, changeCategories, shelfTitle} = this.props
+    const {books, shelfName, updateStatus, shelfTitle} = this.props
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{shelfTitle[`${shelfName}`]}</h2>
@@ -30,7 +30,7 @@ class BookShelf extends React.Component {
               .map((book, index) => (
                 <li key={index}>
                   <Book
-                    changeCategoriesHandle={changeCategories }
+                    updateStatus={updateStatus }
                     shelf={shelfName}
                     title={book.title}
                     authors={book.authors}

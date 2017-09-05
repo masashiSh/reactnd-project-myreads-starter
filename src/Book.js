@@ -18,7 +18,7 @@ class Book extends React.Component {
   }
 
   render() {
-    const {title, authors, style, shelf, book, changeCategoriesHandle} = this.props
+    const {title, authors, style, shelf, book, updateStatus} = this.props
 
     return (
         <div className="book">
@@ -27,7 +27,7 @@ class Book extends React.Component {
             <div className="book-shelf-changer">
               <select
                 value={shelf}
-                onChange={(e) => changeCategoriesHandle(book, e.target.value)}
+                onChange={(e) => updateStatus(book, e.target.value)}
               >
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>

@@ -7,7 +7,7 @@ import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
-    /** 
+    /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
      * users can use the browser's back and forward buttons to navigate between
@@ -18,14 +18,12 @@ class BooksApp extends React.Component {
     result:[]
   }
 
-  changeCategories = (book, shelf) => {
-    BooksAPI.update(book, shelf).then((result) => {
-      const currentBooks = this.state.books
-      const nextBooks = currentBooks.map((book) => (book.id===result.id)? book.shelf = shelf: book)
-      this.setState({ books: nextBooks })
-    })
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
+  updateStatus = (book, newShelf) => {
+    book.shelf = newShelf
+    BooksAPI.update(book, newShelf).then((res) => {  // update
+      this.setState(state => ({                   // remove old status
+        books: this.state.books.filter(b => b.id !== book.id).concat([book])                   // add new status
+      }))
     })
   }
 
@@ -39,14 +37,14 @@ class BooksApp extends React.Component {
       <div className="app">
         <Route path="/search" render={() =>(
           <Search
-            changeCategories={this.changeCategories }
+            updateStatus={this.updateStatus }
             showSearchPage={this.state.showSearchPage}
             books={this.state.books}
           />
         )} />
         <Route path="/" exact render={() => (
           <ListBooks
-            changeCategories={this.changeCategories }
+            updateStatus={this.updateStatus }
             books={this.state.books}
           />
         )} />

@@ -16,7 +16,7 @@ class Search extends React.Component {
     query:'',
     result:[]
   }
-  HandleSearch = (query) => {
+  handleSearch = (query) => {
     this.setState({query: query.trim()})
     this.searchBooks(query.trim())
   }
@@ -29,7 +29,7 @@ class Search extends React.Component {
 
   render() {
     const {result} = this.state
-    // const {books} = this.props
+    const {updateStatus} = this.props
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -50,7 +50,7 @@ class Search extends React.Component {
             <input type="text"
               placeholder="Search by title or author"
               value={this.state.query}
-              onChange={(e) => this.HandleSearch(e.target.value)}
+              onChange={(e) => this.handleSearch(e.target.value)}
             />
 
           </div>
@@ -63,7 +63,7 @@ class Search extends React.Component {
                 <Book
                   book={book}
                   shelf={book.shelf}
-                  changeCategoriesHandle={this.props.changeCategories }
+                  updateStatus={updateStatus}
                   title={book.title}
                   authors={book.authors}
                   style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}

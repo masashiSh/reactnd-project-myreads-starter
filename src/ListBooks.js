@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 class ListBooks extends React.Component {
   static propTypes = {
-    changeCategories: PropTypes.func.isRequired
+    updateStatus: PropTypes.func.isRequired
   }
   state = {
     /**
@@ -20,7 +20,7 @@ class ListBooks extends React.Component {
 
 
   render() {
-    const { books, changeCategories } = this.props
+    const { books, updateStatus } = this.props
     const shelfList = ["currentlyReading", "wantToRead", "read"]
     const shelfTitle = {"currentlyReading": "Currently Reading", "wantToRead": "Want to Read", "read": "Read"}
     // const shelfTitle = [{"currentlyReading": "Currently Reading"}, {"wantToRead": "Want to Read"}, {"read": "Read"}]
@@ -34,7 +34,7 @@ class ListBooks extends React.Component {
             {(!!books && books.length>0) &&
               shelfList.map(shelf => (
               <BookShelf
-                changeCategories={changeCategories }
+                updateStatus={updateStatus }
                 key={shelf}
                 shelfName={shelf}
                 books={books}
