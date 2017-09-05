@@ -62,11 +62,7 @@ class Search extends React.Component {
               <li key={index}>
                 <Book
                   book={book}
-                  shelf={book.shelf}
                   updateStatus={updateStatus}
-                  title={book.title}
-                  authors={book.authors}
-                  style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}
                 />
               </li>
             ))}

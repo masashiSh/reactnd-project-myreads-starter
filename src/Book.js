@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 
 class Book extends React.Component {
   static propTypes = {
-    title:PropTypes.string.isRequired,
-    style:PropTypes.object.isRequired,
+    // title:PropTypes.string.isRequired,
+    book:PropTypes.object.isRequired,
   }
   state = {
     /**
@@ -18,15 +18,22 @@ class Book extends React.Component {
   }
 
   render() {
-    const {title, authors, style, shelf, book, updateStatus} = this.props
+    const {book, updateStatus} = this.props
 
     return (
         <div className="book">
           <div className="book-top">
-            <div className="book-cover" style={style}></div>
+            <div className="book-cover"
+              style={{
+                width: 128,
+                height: 193,
+                backgroundImage:
+                `url(${book.imageLinks.thumbnail || book.imageLinks.smallThumbnail})`
+              }}
+            ></div>
             <div className="book-shelf-changer">
               <select
-                value={shelf}
+                value={book.shelf}
                 onChange={(e) => updateStatus(book, e.target.value)}
               >
                 <option value="none" disabled>Move to...</option>
@@ -37,8 +44,8 @@ class Book extends React.Component {
               </select>
             </div>
           </div>
-          <div className="book-title">{title}</div>
-          <div className="book-authors">{authors}</div>
+          <div className="book-title">{book.title}</div>
+          <div className="book-authors">{!!book.authors ? book.authors.join(', '): 'Unknown'}</div>
         </div>
     )
   }

@@ -31,11 +31,7 @@ class BookShelf extends React.Component {
                 <li key={index}>
                   <Book
                     updateStatus={updateStatus }
-                    shelf={shelfName}
-                    title={book.title}
-                    authors={book.authors}
                     book={book}
-                    style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}
                   />
                 </li>
               ))}
