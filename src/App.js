@@ -15,7 +15,7 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false,
     books: [],
-    result:[]
+    // result:[]
   }
 
   updateStatus = (book, newShelf) => {
