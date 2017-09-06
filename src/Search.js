@@ -20,16 +20,20 @@ class Search extends React.Component {
     this.setState({query: query.trim()})
     this.searchBooks(query.trim())
   }
-  searchBooks = (query)  => {
-    BooksAPI.search(query, 10)
-    .then(result => {
-      !!result && this.setState({result})
+  searchBooks = (query, maxResults=20)  => {
+    const {books} = this.props
+    BooksAPI.search(query, maxResults)
+    .then(res => {
+      !!res && this.setState({
+        result: Object.assign([], res.map(b => {b.shelf = "none"; return b}), books)
+                .filter(b => res.map(r => r.id).includes(b.id))
+      })
     })
   }
 
   render() {
     const {result} = this.state
-    const {updateStatus} = this.props
+    const {updateStatus, books} = this.props
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -62,6 +66,7 @@ class Search extends React.Component {
               <li key={index}>
                 <Book
                   book={book}
+                  books={books}
                   updateStatus={updateStatus}
                 />
               </li>
