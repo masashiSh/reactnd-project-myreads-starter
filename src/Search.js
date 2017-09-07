@@ -4,7 +4,6 @@ import './App.css'
 import Book from './Book'
 import Error from './Error'
 import { Link } from 'react-router-dom'
-import { debounce } from 'lodash'
 
 class Search extends React.Component {
   state = {
@@ -20,15 +19,13 @@ class Search extends React.Component {
     error:''
   }
   handleSearch = (query) => {
+    !!(query.trim().length > 0) && this.searchBooks(query.trim())
     this.setState({
-      query: query.trim(),
+      query: query,
       result: [],
       error: ''
     })
-    !!(query.length > 0) && this.searchBooks(query.trim())
   }
-  debounceHandleSearch = debounce(query => { this.handleSearch(query)
-  })
 
   searchBooks = (query, maxResults=20)  => {
     const {books} = this.props
@@ -75,7 +72,7 @@ class Search extends React.Component {
             <input type="text"
               placeholder="Search by title or author"
               value={this.state.query}
-              onChange={(e) => this.debounceHandleSearch(e.target.value)}
+              onChange={(e) => this.handleSearch(e.target.value)}
             />
 
           </div>
