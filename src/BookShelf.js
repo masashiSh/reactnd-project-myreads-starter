@@ -5,18 +5,11 @@ import Book from './Book'
 
 class BookShelf extends React.Component {
   static propTypes = {
-    updateStatus: PropTypes.func.isRequired
+    updateStatus: PropTypes.func.isRequired,
+    books: PropTypes.array.isRequired,
+    shelfName: PropTypes.string.isRequired,
+    shelfTitle: PropTypes.object.isRequired
   }
-  state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false
-  }
-
 
   render() {
     const {books, shelfName, updateStatus, shelfTitle} = this.props
