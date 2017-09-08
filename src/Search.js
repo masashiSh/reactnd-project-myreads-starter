@@ -16,6 +16,7 @@ class Search extends React.Component {
     result: [],
     error:''
   }
+
   handleSearch = (query) => {
     !!(query.trim().length > 0) && this.searchBooks(query.trim())
     this.setState({
