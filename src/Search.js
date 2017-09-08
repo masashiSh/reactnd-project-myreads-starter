@@ -57,6 +57,7 @@ class Search extends React.Component {
         <div className="search-books-bar">
           <Link className="close-search"
             to="/"
+            onClick={() => window.scrollTo(0, 0)}
           >
             Close
           </Link>
