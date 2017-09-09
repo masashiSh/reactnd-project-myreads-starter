@@ -7,8 +7,8 @@ const Book = ({book, updateStatus}) => (
     <div className="book-top">
       <div className="book-cover"
         style={{
-          width: 128,
-          height: 193,
+          // width: 128,
+          // height: 193,
           backgroundImage:
           `url(${book.imageLinks.thumbnail || book.imageLinks.smallThumbnail})`
         }}
